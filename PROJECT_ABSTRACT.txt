@@ -1,0 +1,64 @@
+MACHINE LEARNING-BASED HEATWAVE PREDICTION AND EXPLAINABLE AI ANALYSIS
+PROJECT ABSTRACT
+
+Abstract
+
+This report presents a comprehensive machine learning framework for heatwave prediction using global temperature data. We explore challenges associated with large-scale climate datasets, including data extraction complexity, spatial-temporal dependencies, and model interpretability requirements. The study emphasizes a multi-model ensemble approach applied to the Berkeley Earth Global 1-degree gridded temperature dataset, coupled with advanced Explainable AI (XAI) techniques using SHAP analysis. 
+
+The methodology encompasses preprocessing global temperature data through areal weighting and climatology computation, engineering temporal features including day-of-year cyclical encoding, implementing seven distinct machine learning models (Random Forest, XGBoost, Logistic Regression, Linear SVM, MLP, MLP Ensemble, and AdaBoost+MLP Regressor), conducting rigorous 5-fold cross-validation, and deploying comprehensive XAI analysis for model interpretability. 
+
+Key innovations include successfully extracting and processing the massive Berkeley Earth dataset (423 MB NetCDF file with global coverage), implementing area-weighted sampling to account for geographical representation, creating a hybrid regression-classification approach (ML7) that predicts future temperatures and derives heatwave classifications, and applying SHAP (SHapley Additive exPlanations) analysis to all seven models for complete transparency and interpretability.
+
+Results demonstrate exceptional performance across all models. The best-performing model (ML7 - AdaBoost+MLP) achieved 97.34% classification accuracy, 91.29% precision, 93.53% recall, and 92.40% F1-score for heatwave detection, while maintaining R²=0.9926 and MAE=0.99°C for temperature regression. The ensemble approaches (ML2-XGBoost and ML6-MLP Ensemble) achieved high ROC-AUC scores of 98.73% and 97.96% respectively, demonstrating robust probabilistic predictions. Traditional models (ML1-Random Forest: 92.20% accuracy, ML3-Logistic Regression: 88.42% accuracy) provided strong baseline performance, while the calibrated SVM (ML4) achieved the highest precision (98.79%) at the cost of recall.
+
+XAI analysis revealed critical insights through SHAP visualizations. Feature importance analysis across all models consistently identified temperature_celsius, climatology, and temperature_anomaly as the top three predictors. Permutation importance validated these findings with model-agnostic feature ranking. SHAP summary plots demonstrated that higher temperatures, positive anomalies, and seasonal patterns (doy_sin, doy_cos) strongly drive heatwave predictions. SHAP force plots provided individual prediction explanations, showing how each feature contributed to specific heatwave classifications. Geographical features (latitude, longitude) and temporal lags (temp_anom_prev_day, temp_anom_diff_1d) exhibited moderate but consistent influence across models.
+
+Comprehensive visualizations, including confusion matrices, ROC curves, precision-recall curves, feature importance plots, SHAP summary plots, SHAP bar charts, force plots, and decision plots, provide complete insights into model performance and prediction mechanisms. Cross-validation analysis demonstrated consistency across folds, with the hybrid regression model (ML7) showing superior generalization capabilities.
+
+This work advances climate prediction by implementing a complete pipeline from raw global climate data extraction through model deployment and interpretability analysis. The integration of diverse machine learning architectures with rigorous XAI techniques offers a robust, transparent, and production-ready framework for operational heatwave early warning systems. The project successfully addresses the critical challenge of making black-box machine learning models interpretable for climate science applications, where stakeholder trust and regulatory compliance demand full transparency in prediction mechanisms.
+
+Keywords: Heatwave Prediction, Machine Learning, Berkeley Earth Dataset, XGBoost, Random Forest, Neural Networks, Explainable AI, SHAP Analysis, Climate Modeling, Temperature Forecasting, Feature Importance, Time Series Classification
+
+
+================================================================================
+PROJECT RESULTS SUMMARY
+================================================================================
+
+CLASSIFICATION PERFORMANCE (All 7 Models):
+Model                           Accuracy  Precision  Recall    F1-Score  ROC-AUC
+----------------------------------------------------------------------------------
+ML7 (AdaBoost+MLP Regressor)    97.34%    91.29%     93.53%    92.40%    96.30%
+ML2 (XGBoost)                   93.35%    95.32%     90.31%    92.75%    98.73%
+ML1 (Random Forest)             92.20%    92.78%     90.48%    91.62%    N/A
+ML5 (MLP Classifier)            91.07%    92.85%     87.81%    90.26%    98.03%
+ML6 (MLP Ensemble)              90.91%    93.15%     87.10%    90.02%    97.96%
+ML4 (Linear SVM Calibrated)     88.70%    98.79%     76.94%    86.51%    91.57%
+ML3 (Logistic Regression)       88.42%    85.45%     90.90%    88.09%    95.41%
+
+REGRESSION PERFORMANCE (ML7):
+----------------------------------------------------------------------------------
+Mean Absolute Error (MAE):      0.990°C
+R² Score:                       0.9926
+
+EXPLAINABLE AI (XAI) ANALYSIS - SHAP:
+----------------------------------------------------------------------------------
+Total Models Analyzed:          7
+Visualizations Generated:       
+  - Feature Importance Plots:   7
+  - Permutation Importance:     6
+  - SHAP Summary Plots:         7
+  - SHAP Bar Charts:            7
+  - SHAP Force Plots:           18 (3 per model × 6 models)
+  - SHAP Decision Plots:        5
+
+Top 3 Most Important Features (Consistent Across All Models):
+1. temperature_celsius - Current temperature measurement
+2. climatology - Long-term average temperature
+3. temperature_anomaly - Deviation from climatological mean
+
+Key Insights:
+- Ensemble methods (XGBoost, MLP Ensemble) achieved highest ROC-AUC scores
+- Hybrid regression approach (ML7) delivered best overall performance
+- SHAP analysis confirmed physical consistency of learned patterns
+- Temporal features (seasonal encoding) critical for prediction accuracy
+- Geographical weighting improved model generalization

@@ -1,0 +1,36 @@
+1) Data Processing extraction (i.py)
+
+2) ml_utils.py (feature Engineering)
+| Operation                 | What it does                                           | Why it’s done                                      |
+| ------------------------- | ------------------------------------------------------ | -------------------------------------------------- |
+| **add_time_features()**   | Adds cyclical `doy_sin`, `doy_cos`                     | Models seasonal cycles (days wrap around smoothly) |
+| **compute_percentiles()** | Calculates 90th percentile per (lat, lon, month)       | Defines local “heatwave” temperature threshold     |
+| **build_future_target()** | Shifts temperature by +10 days                         | Predicts if future temperature ≥ 90th percentile   |
+| **time_aware_split()**    | Splits train/test chronologically                      | Mimics real forecasting (no data leakage)          |
+| **prepare_features()**    | Cleans missing data, builds `X_train`, `y_train`, etc. | Ensures features are numeric and aligned           |
+
+3) ml models feature scaling 
+
+| Model           | Algorithm                | Scaling Technique                    | Why it’s used / not used                                      |
+| --------------- | ------------------------ | ------------------------------------ | ------------------------------------------------------------- |
+| **ml1_fast.py** | Random Forest            | ❌ None                               | Tree-based models handle raw feature scales directly          |
+| **ml2_fast.py** | XGBoost                  | ❌ None                               | Boosted trees are scale-invariant                             |
+| **ml3_fast.py** | Logistic Regression      | ✅ `StandardScaler()`                 | Gradient-based algorithm → needs normalized input             |
+| **ml4_fast.py** | SVM (RBF kernel)         | ✅ `StandardScaler()`                 | Required for distance-based kernels                           |
+| **ml5_fast.py** | MLP (Neural Net)         | ✅ `StandardScaler()`                 | Neural nets converge faster on normalized features            |
+| **ml6_fast.py** | Ensemble of MLPs         | ✅ `StandardScaler()`                 | Each sub-model benefits from zero-mean, unit-variance scaling |
+| **ml7_fast.py** | AdaBoost + MLP Regressor | ✅ `StandardScaler()` inside pipeline | Ensures stable convergence and balanced feature gradients     |
+
+4) Evaluated models 
+| Model          | Type                   | Accuracy  | F1   | ROC AUC | Notes                               |
+| -------------- | ---------------------- | --------- | ---- | ------- | ----------------------------------- |
+| ml1_fast       | Random Forest          | **92.7%** | 0.92 | —       | Best tree-based classifier          |
+| ml5_fast       | MLP (Neural Net)       | **92.1%** | 0.91 | 0.98    | Excellent deep model                |
+| ml6_fast       | MLP Ensemble           | 91.1%     | 0.89 | 0.97    | Strong ensemble                     |
+| ml7_fast (cls) | Derived from regressor | 92.7%     | 0.79 | 0.97    | Regressor-derived classification    |
+| ml2_fast       | XGBoost (small demo)   | 50.3%     | 0.51 | 0.50    | Weak, underfitted small subset      |
+| ml3_fast       | Logistic Regression    | 51.3%     | 0.45 | 0.51    | Weak, linear baseline               |
+| ml4_fast       | SVM                    | 50.6%     | 0.44 | 0.50    | Weak, small subset and under-scaled |
+
+
+Explanaiable Ai -- apply on all models (cross validation all models)

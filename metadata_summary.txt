@@ -1,0 +1,72 @@
+=== GLOBAL ATTRIBUTES ===
+Conventions: Berkeley Earth Internal Convention (based on CF-1.5)
+title: Berkeley Earth Surface Temperature Anomaly Field
+file_creation: 12-Sep-2025 02:25:00
+institution: Berkeley Earth
+land_source_analysis_date: 04-Sep-2025 02:47:26
+ocean_source_analysis_date: 29-Aug-2025 11:00:23
+comment: This file contains surface temperature anomaly field gridded on a 1° (longitude) by 1° (latitude) grid-box basis.
+
+=== VARIABLES ===
+
+Variable: longitude
+Dimensions: ('longitude',)
+Shape: (360,)
+units: degrees_east
+standard_name: longitude
+long_name: Longitude
+
+Variable: latitude
+Dimensions: ('latitude',)
+Shape: (180,)
+units: degrees_north
+standard_name: latitude
+long_name: Latitude
+
+Variable: time
+Dimensions: ('time',)
+Shape: (2108,)
+units: year A.D.
+standard_name: time
+long_name: Time
+
+Variable: land_mask
+Dimensions: ('latitude', 'longitude')
+Shape: (180, 360)
+units: none
+standard_name: land_mask
+long_name: Land Mask
+missing_value: nan
+valid_min: 0.0
+valid_max: 1.0000001192092896
+
+Variable: areal_weight
+Dimensions: ('latitude', 'longitude')
+Shape: (180, 360)
+units: none
+standard_name: areal_weight
+long_name: Grid Cell Weight
+missing_value: nan
+valid_min: 0.011453332526558398
+valid_max: 0.011453332526558398
+
+Variable: temperature
+Dimensions: ('time', 'latitude', 'longitude')
+Shape: (2108, 180, 360)
+units: degree C
+standard_name: surface_temperature_anomaly
+long_name: Air Surface Temperature Anomaly
+missing_value: nan
+valid_min: -22.897323608398438
+valid_max: 30.495140075683594
+
+Variable: climatology
+Dimensions: ('month_number', 'latitude', 'longitude')
+Shape: (12, 180, 360)
+units: degree C
+standard_name: surface_temperature_climatology
+long_name: Air Surface Temperature Climatology (Jan 1951 - Dec 1980)
+coordinates: latitude longitude
+missing_value: nan
+valid_min: -69.29881286621094
+valid_max: 38.56544876098633

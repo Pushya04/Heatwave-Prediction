@@ -1,0 +1,21 @@
+﻿# Large data files (exceed GitHub 100MB limit)
+*.nc
+Global_Temperature_Complete.csv
+Global_Temperature_Sample.csv
+india.csv
+areal_weight_full_extraction.csv
+climatology_full_extraction.csv
+compact_results.csv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Model files (too large)
+models/
+
+# Results directory (generated files)
+results/
+
+# Logs
+*.log
